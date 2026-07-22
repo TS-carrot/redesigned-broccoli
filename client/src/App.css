@@ -1,0 +1,72 @@
+.app { min-height: 100vh; }
+
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(175deg, #EBE4F5 0%, #F5EFF7 40%, #FBF6F4 70%);
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.loading-screen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 30% 35%, rgba(167, 139, 250, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 35% at 70% 55%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
+}
+
+.loading-orb {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: conic-gradient(var(--violet-500), var(--violet-200), var(--violet-600), var(--violet-500));
+  animation: orb-spin 1.2s linear infinite, orb-breathe 2s ease-in-out infinite;
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.3), 0 0 80px rgba(139, 92, 246, 0.1);
+  position: relative; z-index: 1;
+}
+
+@keyframes orb-spin { to { transform: rotate(360deg); } }
+@keyframes orb-breathe { 0%,100%{transform:scale(1);} 50%{transform:scale(1.08);} }
+
+.loading-title { font-size: 20px; font-weight: 600; color: var(--text-primary); margin: 12px 0 0; position: relative; z-index: 1; }
+.loading-sub { font-size: 14px; color: var(--text-secondary); margin: 0; position: relative; z-index: 1; }
+
+.error-screen {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #FEF2F2 0%, var(--surface) 50%);
+  padding: 24px;
+}
+
+.error-card {
+  text-align: center;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 48px 32px;
+  box-shadow: var(--shadow-lg);
+  max-width: 400px; width: 100%;
+  border: 1px solid #FECACA;
+}
+
+.error-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: #FEF2F2; color: #EF4444; font-size: 20px; font-weight: 700; margin-bottom: 16px;
+}
+
+.error-card h3 { margin: 0 0 8px; color: var(--text-primary); font-size: 18px; }
+.error-card p { color: var(--text-secondary); margin: 0 0 24px; font-size: 14px; line-height: 1.6; }
+
+.btn-primary {
+  padding: 12px 28px; border: none; border-radius: 50px;
+  background: linear-gradient(135deg, var(--violet-600), var(--violet-500));
+  color: #fff; font-size: 15px; font-weight: 600; font-family: inherit; cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.1s;
+}
+.btn-primary:hover { box-shadow: var(--shadow-glow), 0 4px 16px rgba(124, 58, 237, 0.25); }
+.btn-primary:active { transform: scale(0.97); }

@@ -1,0 +1,49 @@
+:root {
+  --violet-50: #F5F0FF;
+  --violet-100: #EDE4FF;
+  --violet-200: #DDCDFF;
+  --violet-300: #C4A7FF;
+  --violet-500: #8B5CF6;
+  --violet-600: #7C3AED;
+  --violet-700: #6D28D9;
+  --violet-900: #4C1D95;
+
+  --surface: #FFFFFF;
+  --surface-tint: #FBF8FF;
+  --text-primary: #1E1B4B;
+  --text-secondary: #6B6891;
+  --text-muted: #9C99B5;
+  --border: #E4DFF0;
+  --border-focus: #A78BFA;
+
+  --shadow-sm: 0 1px 2px rgba(124, 58, 237, 0.06);
+  --shadow-md: 0 4px 16px rgba(124, 58, 237, 0.08), 0 1px 4px rgba(124, 58, 237, 0.04);
+  --shadow-lg: 0 12px 40px rgba(124, 58, 237, 0.10), 0 4px 12px rgba(124, 58, 237, 0.05);
+  --shadow-glow: 0 0 0 4px rgba(139, 92, 246, 0.12);
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  background: var(--surface);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
