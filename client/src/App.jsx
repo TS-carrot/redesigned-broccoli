@@ -3,6 +3,8 @@ import TravelForm from './components/TravelForm'
 import ItineraryView from './components/ItineraryView'
 import './App.css'
 
+const API = 'http://localhost:3001'
+
 function App() {
   const [itinerary, setItinerary] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -16,8 +18,7 @@ function App() {
     setHasSearched(true)
 
     try {
-      const API_BASE = import.meta.env.VITE_API_BASE || ''
-      const res = await fetch(`${API_BASE}/api/generate`, {
+      const res = await fetch(`${API}/api/generate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
