@@ -2,7 +2,7 @@
 // 部署到 Vercel 后，前端直接调用 /api/generate
 
 import Anthropic from '@anthropic-ai/sdk'
-import { buildSystemPrompt, buildUserPrompt, parseResponse } from '../server/prompt.js'
+import { buildSystemPrompt, buildUserPrompt, parseResponse } from './prompt.js'
 
 export default async function handler(req, res) {
   // CORS
