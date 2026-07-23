@@ -3,7 +3,7 @@ import TravelForm from './components/TravelForm'
 import ItineraryView from './components/ItineraryView'
 import './App.css'
 
-const API = 'http://localhost:3001'
+const API = ''
 
 function App() {
   const [itinerary, setItinerary] = useState(null)
