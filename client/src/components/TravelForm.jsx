@@ -21,6 +21,7 @@ export default function TravelForm({ onSubmit, loading }) {
     destination: '',
     days: 5,
     startDate: '',
+    travelers: 1,
     budget: '',
     preferences: [],
     focusAreas: ['routes', 'food', 'hotels']
@@ -160,7 +161,7 @@ export default function TravelForm({ onSubmit, loading }) {
             <span className="field-hint">多个城市用逗号或空格分隔，例如：大理 丽江 香格里拉</span>
           </div>
 
-          <div className="field-row-three">
+          <div className="field-row-four">
             <div className="field-group">
               <label htmlFor="days" className="field-label">出行天数</label>
               <div className="days-control">
@@ -172,9 +173,18 @@ export default function TravelForm({ onSubmit, loading }) {
             </div>
             <div className="field-group">
               <label htmlFor="startDate" className="field-label">出发日期</label>
-              <input id="startDate" type="date" className="date-input"
+              <input id="startDate" type="text" className="date-input"
+                placeholder="2026/07/06"
                 value={form.startDate} onChange={(e) => handleChange('startDate', e.target.value)} disabled={loading} />
               <span className="field-hint">AI 会根据季节优化行程建议</span>
+            </div>
+            <div className="field-group">
+              <label htmlFor="travelers" className="field-label">出行人数</label>
+              <div className="days-control">
+                <button type="button" className="days-btn" onClick={() => handleChange('travelers', Math.max(1, (form.travelers || 1) - 1))} aria-label="减少人数">−</button>
+                <div className="days-display"><span className="days-number">{(form.travelers || 1)}</span><span className="days-unit">人</span></div>
+                <button type="button" className="days-btn" onClick={() => handleChange('travelers', Math.min(50, (form.travelers || 1) + 1))} aria-label="增加人数">+</button>
+              </div>
             </div>
             <div className="field-group">
               <label htmlFor="budget" className="field-label">人均预算</label>

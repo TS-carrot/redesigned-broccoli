@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end()
   if (req.method !== 'POST') return res.status(405).json({ error: '仅支持 POST' })
 
-  const { destination, days, startDate, budget, preferences, focusAreas } = req.body || {}
+  const { destination, days, startDate, travelers, budget, preferences, focusAreas } = req.body || {}
 
   if (!destination || !destination.trim()) {
     return res.status(400).json({ error: '请输入目的地' })
@@ -32,6 +32,7 @@ export default async function handler(req, res) {
 
     const userPrompt = `目的地：${destination.trim()}，${days || 3}天` +
       (startDate ? `，${startDate}出发` : '') +
+      (travelers ? `，${travelers}人出行` : '') +
       (budget ? `，人均预算${budget}元` : '') +
       '\n' + extra + '\n请生成完整的旅行计划。'
 
