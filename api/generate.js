@@ -1,17 +1,4 @@
-// Vercel Serverless Function — 旅行规划 API
-import Anthropic from '@anthropic-ai/sdk'
-
-const SYSTEM_PROMPT = `你是一位资深的中国旅行规划专家。请用 Markdown 格式生成一份详细的旅行计划，包含：
-## 总体概览（日期-行程-住宿表格）
-## 城际交通（路段-方式-耗时-票价表格）
-## 每日详细行程（住宿推荐、上午/下午/晚上活动、具体餐馆名称和价格）
-## 美食精华总表（城市-美食-推荐店铺-人均-类型表格）
-## 住宿速查总表
-## 预算估算表格
-## 出行贴士
-## 每日路线快速参考
-要求：具体到店铺名和价格，用emoji点缀，语言生动接地气。`
-
+// Vercel Serverless Function — 支持 DeepSeek API
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
@@ -48,16 +35,26 @@ export default async function handler(req, res) {
       (budget ? `，人均预算${budget}元` : '') +
       '\n' + extra + '\n请生成完整的旅行计划。'
 
-    const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
-
-    const message = await anthropic.messages.create({
-      model: 'claude-sonnet-4-6-20250805',
-      max_tokens: 8192,
-      system: SYSTEM_PROMPT,
-      messages: [{ role: 'user', content: userPrompt }]
+    const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.ANTHROPIC_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'deepseek-chat',
+        messages: [
+          { role: 'system', content: '你是一位资深的中国旅行规划专家。请用 Markdown 格式生成一份详细的旅行计划，包含每日行程、美食推荐、住宿建议、预算估算和出行贴士。用emoji点缀，语言生动。' },
+          { role: 'user', content: userPrompt }
+        ],
+        max_tokens: 8192
+      })
     })
 
-    const text = message.content.filter(b => b.type === 'text').map(b => b.text).join('')
+    const data = await response.json()
+    if (!response.ok) throw new Error(data.error?.message || '请求失败')
+    const text = data.choices[0].message.content
+
     return res.json({ success: true, markdown: text })
 
   } catch (error) {
